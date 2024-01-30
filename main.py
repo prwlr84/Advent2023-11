@@ -41,10 +41,10 @@ def get_dist_sum():
         for key2 in coordinates:
             if key1 < key2:  # This ensures each pair is added only once, ignoring order
                 combinations.append(
-                    (coordinates[key2][0] - coordinates[key1][0]) + (coordinates[key2][1] - coordinates[key1][1])
+                    abs(coordinates[key2][0] - coordinates[key1][0]) + abs(coordinates[key2][1] - coordinates[key1][1])
                 )
 
-    print(combinations)
+    print(sum(combinations))
 
 
 if __name__ == '__main__':
