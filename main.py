@@ -1,13 +1,14 @@
 from input import input_string
+from itertools import combinations
 
 
 def get_points(grid_data):
-    points = {}
+    points = []
     counter = 0
     for i in range(len(grid_data)):
         for j, elem in enumerate(grid_data[i]):
             if elem == '#':
-                points[counter] = [i,j]
+                points.append([i, j])
                 counter += 1
 
     return points
@@ -34,17 +35,10 @@ grid = expand_grid([list(line) for line in input_string.split('\n')])
 
 def get_dist_sum():
     coordinates = get_points(grid)
-    combinations = []
+    combinations_list = list(combinations(coordinates, 2))
 
-    # Create unique combinations
-    for key1 in coordinates:
-        for key2 in coordinates:
-            if key1 < key2:  # This ensures each pair is added only once, ignoring order
-                combinations.append(
-                    abs(coordinates[key2][0] - coordinates[key1][0]) + abs(coordinates[key2][1] - coordinates[key1][1])
-                )
-
-    print(sum(combinations))
+    distances = [abs(c[1][0] - c[0][0]) + abs(c[1][1] - c[0][1]) for c in combinations_list]
+    print(sum(distances), len(coordinates))
 
 
 if __name__ == '__main__':
