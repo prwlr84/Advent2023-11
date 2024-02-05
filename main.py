@@ -41,56 +41,29 @@ def adjust_coordinates(coordinates):
     x = coordinates[0]
     y = coordinates[1]
 
-    for t in list(enumerate(expanding_positions[0])):
+    expanded_positions = [list(map(lambda z: z[0] * 1 + z[1], list(enumerate(axis)))) for axis in expanding_positions]
+    for t in list(enumerate(expanded_positions[0])):
         if x <= t[1]:
-            x = t[0] * 9 + x
+            x = t[0] * 999998 + x
             break
-        elif x > expanding_positions[0][-1]:
-            x = len(expanding_positions[0]) * 9 + x
+        elif x > expanded_positions[0][-1]:
+            x = len(expanded_positions[0]) * 999998 + x
             break
-        else:
-            continue
 
-    for t in list(enumerate(expanding_positions[1])):
+    for t in list(enumerate(expanded_positions[1])):
         if y <= t[1]:
-            y = t[0] * 9 + y
+            y = t[0] * 999998 + y
             break
-        elif y > expanding_positions[1][-1]:
-            y = len(expanding_positions[1]) * 9 + y
+        elif y > expanded_positions[1][-1]:
+            y = (len(expanded_positions[1])) * 999998 + y
             break
-        else:
-            continue
-
-    # for t in list(enumerate(expanding_positions[0])):
-    #     if x <= t[1]:
-    #         x = t[0] * 9 + x
-    #         break
-    #     elif x > expanding_positions[0][-1]:
-    #         x = len(expanding_positions[0]) * 9 + x
-    #         break
-    #     else:
-    #         continue
-    #
-    # for t in list(enumerate(expanding_positions[1])):
-    #     if y <= t[1]:
-    #         y = t[0] * 9 + y
-    #         break
-    #     elif y > expanding_positions[1][-1]:
-    #         y = len(expanding_positions[1]) * 9 + y
-    #         break
-    #     else:
-    #         continue
 
     return x, y
 
 
-# def count_expansions(coordinates):
-
-
-
-def calc_dist(coordinates, adjusted=False):
+def calc_dist(coordinates, million_mode=False):
     c = coordinates
-    if adjusted:
+    if million_mode:
         c = list(map(adjust_coordinates, coordinates))
         return abs(c[1][0] - c[0][0]) + abs(c[1][1] - c[0][1])
     else:
@@ -103,7 +76,7 @@ def get_dist_sum():
 
     distances = [calc_dist(c) for c in combinations_list]
     distances2 = [calc_dist(c, True) for c in combinations_list]
-    print(sum(distances), sum(distances2), expanding_positions)
+    print('Part 1: {} \nPart 2: {}'.format(sum(distances), sum(distances2)))
 
 
 if __name__ == '__main__':

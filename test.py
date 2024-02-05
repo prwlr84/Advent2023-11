@@ -34,7 +34,7 @@ def test_adjust_list():
     test_input_list = [list(line) for line in test_input]
 
     # Run the adjust_list function
-    actual_output_list = expand_grid(test_input_list)
+    actual_output_list = expand_grid(test_input_list)[0]
 
     # Convert list of lists back to list of strings for comparison
     actual_output = [''.join(sublist) for sublist in actual_output_list]
